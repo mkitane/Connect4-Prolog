@@ -1,5 +1,5 @@
 #Connect4-Prolog
-Connect4 IA written in prolog.
+Connect4's AI written in prolog.
 
 ##Launch Prolog in Mac
 *	Open SWI-Prolog 
