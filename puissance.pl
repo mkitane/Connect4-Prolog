@@ -2,10 +2,6 @@
 :- use_module(matrice_utils).
 :- use_module(finJeu).
 
-bonjour(mehdi).
-bonjour(karim).
-bonjour(mimiettrititi).
-
 
 
 %Predicat pour dessiner soit le pion du joueur a en rouge, soit celui du joueur b en vert ou un espace si la case est vide
@@ -41,22 +37,39 @@ print_matrix(M) :- X is 1, Y is 6, print_column(M,X,Y).
 p([[],[],[],[],[],[],[]]).
 
 
-puissance :- bonjour(brahim).
-puissance :-
-	write('>>'),
-	read(I),
-	addElement(a,I), p(Y), 
-	checkFinJeu(I,Y),
-	write('You Won'),!.
+% Lancement du jeu
+% Si Full on sarrete
+puissance :- p(X), 
+			 all_full(X), 
+			 write('Its a draw'), 
+			 !.
+
+puissance :- p(X),
+			 write('>>'), 
+			 read(I),
+			 ( is_outbound(I) -> write('>>Please a number between 1 and 7'), nl, puissance ;
+
+			 	get_column(X,I,C), 
+			 	( column_is_full(C) ->  write('>>Column Is Full Try Another One'), nl, puissance ;
+			 						addElement(a,I), 
+			 						p(Y), checkFinJeu(I,Y),
+			 						write('You Won')
+			 	)
+			 )
+			 ,!.
+
+puissance :- p(X), 
+			 all_full(X), 
+			 write('Its a draw'), 
+			 !.
 
 puissance :- p(Y), iarandom(Y,XRandom), 
-		addElement(b,XRandom), p(Z),
-		checkFinJeu(XRandom,Z),
-		write('IA Won'),!.
+			 addElement(b,XRandom), 
+			 p(Z), checkFinJeu(XRandom,Z),
+			 write('IA Won'),!.
 
-puissance :- p(Z),	
-	print_matrix(Z),
-	puissance.
+puissance :- p(Z),print_matrix(Z),
+			 puissance.
 
 
 

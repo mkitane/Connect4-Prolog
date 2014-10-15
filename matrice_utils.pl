@@ -1,4 +1,12 @@
-:- module(matrice_utils, [addElement/2, replace/4, nthElem/3, ajoutFin/3, longueur/2, isSame/3]).
+:- module(matrice_utils, [addElement/2, replace/4, nthElem/3, ajoutFin/3, longueur/2, isSame/3, all_full/1, is_outbound/1, get_column/3, column_is_full/1]).
+
+get_column(M,I,C) :- nth1(I,M, C). 
+column_is_full(C) :- longueur(C,Length_c), Length_c > 5.
+
+all_full([]).
+all_full([H|T]) :- column_is_full(H), all_full(T).
+
+is_outbound(I) :- (I<1 ; I>7).
 
 
 longueur([],0).
