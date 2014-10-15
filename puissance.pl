@@ -1,4 +1,3 @@
-
 :- use_module(iarandom).
 :- use_module(matrice_utils).
 
