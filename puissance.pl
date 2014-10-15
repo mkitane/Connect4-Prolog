@@ -1,19 +1,10 @@
 :- use_module(iarandom).
 :- use_module(matrice_utils).
-
+:- use_module(finJeu).
 
 bonjour(mehdi).
 bonjour(karim).
 bonjour(mimiettrititi).
-
-
-
-% Fonction pour savoir si les 4 sur la meme colonne ont la meme couleur 
-checkFinColonne(L) :- longueur(L,Nx), Nx>=4, Ny is Nx-1, Nz is Nx-2, Nw is Nx-3,  isSame(Nx,Ny,L), isSame(Nx,Nz,L), isSame(Nx,Nw,L).
-
-checkFinJeu(L) :- checkFinColonne(L).
-
-
 
 
 %Rule to Print the Matrix
