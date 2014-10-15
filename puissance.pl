@@ -43,15 +43,20 @@ p([[],[],[],[],[],[],[]]).
 
 puissance :- bonjour(brahim).
 puissance :-
-	p(X),
 	write('>>'),
 	read(I),
-	addElement(a,I),
-	iarandom(X),
-	p(R),
-	print_matrix(R),
-	puissance.
+	addElement(a,I), p(Y), 
+	checkFinJeu(I,Y),
+	write('You Won'),!.
 
+puissance :- p(Y), iarandom(Y,XRandom), 
+		addElement(b,XRandom), p(Z),
+		checkFinJeu(XRandom,Z),
+		write('IA Won'),!.
+
+puissance :- p(Z),	
+	print_matrix(Z),
+	puissance.
 
 
 
