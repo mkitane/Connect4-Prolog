@@ -5,4 +5,4 @@
 # Add the line below in your .bash_profile (in the root directory)
 # export PATH=/Applications/SWI-Prolog.app/Contents/MacOS:$PATH
 
-swipl -s puissance.pl
+swipl -s puissance.pl -g puissance
