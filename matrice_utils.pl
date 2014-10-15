@@ -6,7 +6,9 @@ column_is_full(C) :- longueur(C,Length_c), Length_c > 5.
 all_full([]).
 all_full([H|T]) :- column_is_full(H), all_full(T).
 
-is_outbound(I) :- (I<1 ; I>7).
+
+% Check if the number entered in parameter is a number between 1 and 7 
+is_outbound(I) :- (not(number(I)) ; I<1 ; I>7),!.
 
 
 longueur([],0).
