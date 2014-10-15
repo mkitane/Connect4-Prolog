@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# For Unix users only !
+# For Mac users only !
 # Make sure SWI-Prolog.app is in the /Applications directory
-# Add the line below in your .bash_profile (in the root directory)
-# export PATH=/Applications/SWI-Prolog.app/Contents/MacOS:$PATH
 
+export PATH=/Applications/SWI-Prolog.app/Contents/MacOS:$PATH
 swipl -s puissance.pl -g puissance
