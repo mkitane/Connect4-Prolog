@@ -1,10 +1,12 @@
 #Connect4-Prolog
 Connect4's AI written in prolog.
 
-##Launch Prolog in Mac
-*	Open SWI-Prolog 
+##Installing Prolog (Mac OS)
+*	Download .dmg from [http://www.swi-prolog.org/download/stable/bin/SWI-Prolog-6.6.6.dmg](http://www.swi-prolog.org/download/stable/bin/SWI-Prolog-6.6.6.dmg) 
 
-*	Type :
-
-		working_directory(CWD,'/Users/path'). //Go To Directory
-		[test, test1].  //Load files
+*	Open .dmg and drag SWI-Prolog to /Applications :
+		
+##Running Connect4 (Mac OS)
+*	Run the following command in Terminal :	
+		
+		./run
