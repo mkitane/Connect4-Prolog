@@ -14,5 +14,33 @@ checkColonne(C,Y,S) :-
 checkFinColonne(X,Y,L) :- S is 1, nth1(X,L,C), checkColonne(C,Y,S).
 
 
+% Fonction pour savoir si les 4 sur la meme ligne ont la meme couleur
+checkFinLigneBefore(X,Y,L,Sa) :- 
+					Xb is X-1,
+					nth1(X,L,La), nth1(Y,La,Va),
+					nth1(Xb,L,Lb), nth1(Y,Lb,Vb),
+					Va == Vb,
+					S is Sa+1,
+					checkFinLigneBefore(Xb,Y,L,S), !.
+					
+checkFinLigneAfter(X,Y,L,Sb) :- 
+					Xb is X+1,
+					nth1(X,L,La), nth1(Y,La,Va),
+					nth1(Xb,L,Lb), nth1(Y,Lb,Vb),
+					Va == Vb,
+					S is Sb+1,
+					checkFinLigneAfter(Xb,Y,L,Sb), !.
 
-checkFinJeu(X,L) :- nth1(X,L,Column), matrice_utils:longueur(Column,Y), checkFinColonne(X,Y,L).
+checkFinLigne(X,Y,L) :- 
+					S is 1,
+					checkFinLigneBefore(X,Y,L,Sa),
+					checkFinLigneAfter(X,Y,L,Sa), St is Sa+Sb,
+					St = 4, !.
+
+
+
+checkFinJeu(X,L) :-
+					nth1(X,L,Column),
+					matrice_utils:longueur(Column,Y),
+					checkFinColonne(X,Y,L),
+					checkFinLigne(X,Y,L).
