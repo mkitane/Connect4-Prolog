@@ -34,7 +34,7 @@ checkFinLigneAfter(X,Y,L,Sb) :-
 checkFinLigne(X,Y,L) :- 
 					S is 1,
 					checkFinLigneBefore(X,Y,L,Sa),
-					checkFinLigneAfter(X,Y,L,Sa), St is Sa+Sb,
+					checkFinLigneAfter(X,Y,L,Sa), St is Sa+Sb-1,
 					St = 4, !.
 
 
