@@ -9,7 +9,7 @@ checkColonne(C,Y,S) :-
 					Ya is Y-S,
 					matrice_utils:isSame(Ya,Y,C),
 					Sa is S+1, 
-					Sa=<4, write('Sa :'), write(Sa), write(' Ya :'), write(Ya), nl, nl,
+					Sa=<4,
 					checkColonne(C,Y,Sa), !.
 checkFinColonne(X,Y,L) :- S is 1, nth1(X,L,C), checkColonne(C,Y,S).
 
