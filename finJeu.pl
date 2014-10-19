@@ -29,7 +29,7 @@ checkFinLigneAfter(X,Y,L,Sb) :-
 					nth1(Xb,L,Lb), nth1(Y,Lb,Vb),
 					Va == Vb,
 					S is Sb+1,
-					checkFinLigneAfter(Xb,Y,L,Sb), !.
+					checkFinLigneAfter(Xb,Y,L,S), !.
 
 checkFinLigne(X,Y,L) :- 
 					S is 1,
