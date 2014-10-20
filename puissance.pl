@@ -35,40 +35,44 @@ print_matrix(M) :- X is 1, Y is 6, print_column(M,X,Y).
 
 :- dynamic p/1.
 p([[],[],[],[],[],[],[]]).
-
+:- dynamic x/1.
+x(1). %Permet d'utiliser la position dans laquelle le joueur a jouer globalement.
 
 % Lancement du jeu
 % Si Full on sarrete
-puissance :- p(X), 
-			 all_full(X), 
+puissance :- p(Plateau), 
+			 all_full(Plateau), 
 			 write('Its a draw'), 
 			 !.
 
-puissance :- p(X),
+puissance :- p(Plateau),
 			 write('>>'), 
 			 read(I),
+			 retract(x(_)),
+			 assert(x(I)),
 			 ( is_outbound(I) -> write('>>Please a number between 1 and 7'), nl, puissance ;
 
-			 	get_column(X,I,C), 
+			 	get_column(Plateau,I,C), 
 			 	( column_is_full(C) ->  write('>>Column Is Full Try Another One'), nl, puissance ;
 			 						addElement(a,I), 
-			 						p(Y), checkFinJeu(I,Y),
+			 						p(PlateauDeux), checkFinJeu(I,PlateauDeux),
 			 						write('You Won')
 			 	)
 			 )
 			 ,!.
 
-puissance :- p(X), 
-			 all_full(X), 
+puissance :- p(Plateau), 
+			 all_full(Plateau), 
 			 write('Its a draw'), 
 			 !.
 
-puissance :- p(Y), iarandom(Y,XRandom), 
+puissance :- p(Plateau), x(Xplayed),
+			 iarandom(Plateau,XRandom), 
 			 addElement(b,XRandom), 
-			 p(Z), checkFinJeu(XRandom,Z),
+			 p(PlateauDeux), checkFinJeu(XRandom,PlateauDeux),
 			 write('IA Won'),!.
 
-puissance :- p(Z),print_matrix(Z),
+puissance :- p(Plateau),print_matrix(Plateau),
 			 puissance.
 
 
