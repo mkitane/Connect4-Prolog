@@ -57,14 +57,14 @@ puissance :- p(Plateau),
 			 	( column_is_full(C) ->  write('>>Column Is Full Try Another One'), nl, puissance ;
 			 						addElement(a,I), 
 			 						p(PlateauDeux), checkFinJeu(I,PlateauDeux),
-			 						write('You Won')
+			 						write('You Won'),nl, print_matrix(PlateauDeux)
 			 	)
 			 )
 			 ,!.
 
 puissance :- p(Plateau), 
 			 all_full(Plateau), 
-			 write('Its a draw'), 
+			 write('Its a draw'),nl, print_matrix(Plateau),
 			 !.
 
 puissance :- p(Plateau), x(Xplayed),
@@ -72,7 +72,7 @@ puissance :- p(Plateau), x(Xplayed),
 			 % iarandom(Plateau,XRandom), 
 			 addElement(b,XRandom), 
 			 p(PlateauDeux), checkFinJeu(XRandom,PlateauDeux),
-			 write('IA Won'),!.
+			 write('IA Won'),nl, print_matrix(PlateauDeux),!.
 
 puissance :- p(Plateau),print_matrix(Plateau),
 			 puissance.
