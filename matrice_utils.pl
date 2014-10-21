@@ -1,4 +1,4 @@
-:- module(matrice_utils, [addElement/2, replace/4, nthElem/3, ajoutFin/3, longueur/2, isSame/3, all_full/1, is_outbound/1, get_column/3, column_is_full/1]).
+:- module(matrice_utils, [addElement/2, replace/4, nthElem/3, ajoutFin/3, longueur/2, isSame/3, all_full/1, is_outbound/1, get_column/3, column_is_full/1, get_consecutive_neighbors_column/5, get_consecutive_neighbors_ligne_before/5, get_consecutive_neighbors_ligne_after/5, get_consecutive_neighbors_ligne/4, checkFinDiagonaleBefore1/5, checkFinDiagonaleAfter1/5,checkFinDiagonaleBefore2/5,checkFinDiagonaleAfter2/5]).
 
 get_column(M,I,C) :- nth1(I,M, C). 
 column_is_full(C) :- longueur(C,Length_c), Length_c > 5.
@@ -37,3 +37,71 @@ replace(L, _, _, L).
 
 addElement(A,I) :- p(X), nthElem(I,X,Elem), ajoutFin(A,Elem,Newcolonne), Indice is I-1, replace(X,Indice,Newcolonne,R), retract(p(_)) ,assert(p(R)), !.
 
+
+
+%%Utilitaires pour avoir le nombre de voisin en lignes/colonne etc..
+
+get_consecutive_neighbors_column(X,Y,M,S, Compteur) :- 
+					Yb is Y-1, 
+					nth1(X,M,La), nth1(Y,La,Couleur),
+					nth1(X,M,Lb),nth1(Yb,Lb,Couleur),
+					Sa is S + 1, 
+					get_consecutive_neighbors_column(X,Yb,M,Sa, Compteur), !.
+get_consecutive_neighbors_column(_,_,_,S, Compteur) :- Compteur is S, !.
+
+
+% Fonction pour savoir si les 4 sur la meme ligne ont la meme couleur
+get_consecutive_neighbors_ligne_before(X,Y,M,S, Compteur) :- 
+					Xb is X-1, 
+					nth1(X,M,La), nth1(Y,La,Couleur),
+					nth1(Xb,M,Lb),nth1(Y,Lb,Couleur),
+					Sa is S + 1, 
+					get_consecutive_neighbors_ligne_before(Xb,Y,M,Sa, Compteur), !.
+get_consecutive_neighbors_ligne_before(_,_,_,S, Compteur) :- Compteur is S, !.
+
+get_consecutive_neighbors_ligne_after(X,Y,M,S, Compteur) :- 
+					Xb is X+1, 
+					nth1(X,M,La), nth1(Y,La,Couleur),
+					nth1(Xb,M,Lb),nth1(Y,Lb,Couleur),
+					Sa is S + 1, 
+					get_consecutive_neighbors_ligne_after(Xb,Y,M,Sa, Compteur), !.
+get_consecutive_neighbors_ligne_after(_,_,_,S, Compteur) :- Compteur is S, !.
+
+get_consecutive_neighbors_ligne(X,Y,L,Total) :- 
+					get_consecutive_neighbors_ligne_before(X,Y,L,0,Sb), get_consecutive_neighbors_ligne_after(X,Y,L,0,Sa),	
+					Total is Sa+Sb+1, !.
+
+
+					
+% Fonction pour savoir si les 4 sur la meme diagonale ont la meme couleur
+checkFinDiagonaleBefore1(X,Y,M,S, Compteur) :- 
+					Xb is X-1, Yb is Y+1,
+					nth1(X,M,La), nth1(Y,La,Couleur),
+					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
+					Sa is S + 1, 
+					checkFinDiagonaleBefore1(Xb,Y,M,Sa, Compteur), !.
+checkFinDiagonaleBefore1(_,_,_,S, Compteur) :- Compteur is S, !.
+
+checkFinDiagonaleAfter1(X,Y,M,S, Compteur) :- 
+					Xb is X+1, Yb is Y-1,
+					nth1(X,M,La), nth1(Y,La,Couleur),
+					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
+					Sa is S + 1, 
+					checkFinDiagonaleAfter1(Xb,Y,M,Sa, Compteur), !.
+checkFinDiagonaleAfter1(_,_,_,S, Compteur) :- Compteur is S, !.
+
+checkFinDiagonaleBefore2(X,Y,M,S, Compteur) :- 
+					Xb is X-1, Yb is Y-1,
+					nth1(X,M,La), nth1(Y,La,Couleur),
+					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
+					Sa is S + 1, 
+					checkFinDiagonaleBefore2(Xb,Yb,M,Sa, Compteur), !.
+checkFinDiagonaleBefore2(_,_,_,S, Compteur) :- Compteur is S, !.
+
+checkFinDiagonaleAfter2(X,Y,M,S, Compteur) :- 
+					Xb is X+1, Yb is Y+1,
+					nth1(X,M,La), nth1(Y,La,Couleur),
+					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
+					Sa is S + 1, 
+					checkFinDiagonaleAfter2(Xb,Yb,M,Sa, Compteur), !.
+checkFinDiagonaleAfter2(_,_,_,S, Compteur) :- Compteur is S, !.
