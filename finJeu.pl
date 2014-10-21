@@ -1,4 +1,4 @@
-:- module(finJeu, [checkFinColonne/3,checkColonne/3, checkFinJeu/2]).
+:- module(finJeu, [checkFinJeu/2]).
 :-use_module(matrice_utils).
 
 
@@ -50,7 +50,7 @@ checkFinDiagonaleBefore1(X,Y,M,S, Compteur) :-
 checkFinDiagonaleBefore1(_,_,_,S, Compteur) :- Compteur is S, !.
 
 checkFinDiagonaleAfter1(X,Y,M,S, Compteur) :- 
-					Xb is X+1, Yb is Y-1
+					Xb is X+1, Yb is Y-1,
 					nth1(X,M,La), nth1(Y,La,Couleur),
 					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
 					Sa is S + 1, 
@@ -72,7 +72,7 @@ checkFinDiagonaleBefore2(X,Y,M,S, Compteur) :-
 checkFinDiagonaleBefore2(_,_,_,S, Compteur) :- Compteur is S, !.
 
 checkFinDiagonaleAfter2(X,Y,M,S, Compteur) :- 
-					Xb is X+1, Yb is Y+1
+					Xb is X+1, Yb is Y+1,
 					nth1(X,M,La), nth1(Y,La,Couleur),
 					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
 					Sa is S + 1, 
