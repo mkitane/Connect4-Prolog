@@ -1,4 +1,4 @@
-:- module(finJeu, [checkFinJeu/2]).
+:- module(finJeu, [checkFinJeu/2, checkFinColonne/3, checkFinLigne/3, checkFinDiagonale1/3, checkFinDiagonale2/3]).
 :-use_module(matrice_utils).
 
 
