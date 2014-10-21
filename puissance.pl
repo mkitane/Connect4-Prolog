@@ -1,6 +1,7 @@
 :- use_module(iarandom).
 :- use_module(matrice_utils).
 :- use_module(finJeu).
+:- use_module(iadefensive).
 
 
 
@@ -67,7 +68,8 @@ puissance :- p(Plateau),
 			 !.
 
 puissance :- p(Plateau), x(Xplayed),
-			 iarandom(Plateau,XRandom), 
+			 iadefensive(Plateau,XRandom,Xplayed),
+			 % iarandom(Plateau,XRandom), 
 			 addElement(b,XRandom), 
 			 p(PlateauDeux), checkFinJeu(XRandom,PlateauDeux),
 			 write('IA Won'),!.
