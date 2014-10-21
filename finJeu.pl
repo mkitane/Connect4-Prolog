@@ -64,8 +64,7 @@ checkFinLigneAfter(_,_,_,S, Compteur) :- Compteur is S, !.
 % 		(X,Y) : Coordonnées du dernier pion joué dans la grille du jeu
 %		L : matrice (grille du jeu)
 checkFinLigne(X,Y,L) :- 
-					checkFinLigneBefore(X,Y,L,0,Sb), checkFinLigneAfter(X,Y,L,0,Sa),	
-					Total is Sa+Sb+1,
+					get_consecutive_neighbors_ligne(X,Y,L,Total),
 					write('Total Ligne:'), write(Total), nl,
 					Total >=4, !.
 					
@@ -94,25 +93,10 @@ checkFinDiagonale1(X,Y,L) :-
 					Total is Sa+Sb+1,
 					write('Total Diagonale:'), write(Total), nl,
 					Total >=4, !.
+	
 		
 %  -----------------------------------------------------------------------------------------------
 					
-checkFinDiagonaleBefore2(X,Y,M,S, Compteur) :- 
-					Xb is X-1, Yb is Y-1,
-					nth1(X,M,La), nth1(Y,La,Couleur),
-					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
-					Sa is S + 1, 
-					checkFinDiagonaleBefore2(Xb,Yb,M,Sa, Compteur), !.
-checkFinDiagonaleBefore2(_,_,_,S, Compteur) :- Compteur is S, !.
-
-checkFinDiagonaleAfter2(X,Y,M,S, Compteur) :- 
-					Xb is X+1, Yb is Y+1,
-					nth1(X,M,La), nth1(Y,La,Couleur),
-					nth1(Xb,M,Lb),nth1(Yb,Lb,Couleur),
-					Sa is S + 1, 
-					checkFinDiagonaleAfter2(Xb,Yb,M,Sa, Compteur), !.
-checkFinDiagonaleAfter2(_,_,_,S, Compteur) :- Compteur is S, !.
-
 checkFinDiagonale2(X,Y,L) :- 
 					checkFinDiagonaleBefore2(X,Y,L,0,Sb), checkFinDiagonaleAfter2(X,Y,L,0,Sa),	
 					Total is Sa+Sb+1,
