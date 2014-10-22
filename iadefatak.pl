@@ -24,7 +24,7 @@ canwin(M,Xgagnant,X):-
 canwin(M,Xgagnant,X) :- Xsuivant is X+1, canwin(M,Xgagnant,Xsuivant).
 
 
-% Mode d'emploi : Predicat iteratif qui renvoie la position d'une ligne si les 3 derniers elements de cette ligne sont de la 
+% Mode d'emploi : Predicat iteratif qui renvoie la position d'une colonne si les 3 derniers elements dune ligne sont de la 
 %				meme couleur que les elements de l'ia. 
 
 % Paramètres : 
@@ -60,7 +60,7 @@ iadefatak(M,Xh,Xbeg) :-
  				canwin1(M,Xgagnant,Xbeg),
 				Xh is Xgagnant.				
 				
-iadefensive(M,Xh,Xpos) :- iarandom(M,Xh),!.
+iadefatak(M,Xh,Xpos) :- iarandom(M,Xh),!.
 % % Cpt=3,
 % Xh is Xpos,
 % N=<5,!.
