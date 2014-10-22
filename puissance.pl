@@ -2,7 +2,7 @@
 :- use_module(matrice_utils).
 :- use_module(finJeu).
 :- use_module(iadefensive).
-
+:- use_module(iadefatak).
 
 
 %Predicat pour dessiner soit le pion du joueur a en rouge, soit celui du joueur b en vert ou un espace si la case est vide
@@ -68,8 +68,9 @@ puissance :- p(Plateau),
 			 !.
 
 puissance :- p(Plateau), x(Xplayed),
-			 iadefensive(Plateau,XRandom,Xplayed),
+			 %iadefensive(Plateau,XRandom,Xplayed),
 			 % iarandom(Plateau,XRandom), 
+			 iadefatak(Plateau,XRandom,1),
 			 addElement(b,XRandom), 
 			 p(PlateauDeux), checkFinJeu(XRandom,PlateauDeux),
 			 write('IA Won'),nl, print_matrix(PlateauDeux),!.
