@@ -5,4 +5,4 @@
 
 export PATH=/Applications/SWI-Prolog.app/Contents/MacOS:$PATH
 #swipl -s testFinJeu.pl -t "kitane(hmar)"
-swipl -s testFinJeu.pl
+swipl -s testFinJeu.pl -t run_tests
