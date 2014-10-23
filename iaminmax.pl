@@ -39,10 +39,9 @@ minimum(X, Y, Result, BestX, X1, BestX1) :- Result is Y, BestX1 is X1,!.
 %             bestValue := min(bestValue, val)
 %         return bestValue
 
-minimax(Plateau, Child, 2, Value, X) :- heuristic(Plateau, Value), X is Child.
-minimax(Plateau, Child, Profondeur, Value, X) :- Child == 2, Profondeur == 1, nl, X is Child, Value is -1309409049409409, write('    //Result :'), write(Value), nl.
-%minimax(_,_,_,Value) :- %Un des deux a gagné, ou plateau Full,
-%						heuristic(Plateau,Value).
+minimax(Plateau,Child,Profondeur,Value,X) :- Xc is Child +1 , nth1(Xc,Plateau, Column), column_is_full(Column), X is Child, Value is 0,!.
+minimax(Plateau, Child, 2, Value, X) :- heuristic(Plateau, Value), X is Child,!.
+minimax(Plateau, Child, Profondeur, Value, X) :- Child == 2, Profondeur == 1, nl, X is Child, Value is -1309409049409409, write('    //Result :'), write(Value), nl,!.
 minimax(Plateau, Child, Profondeur, Value, X) :- 
 		Max is Profondeur mod 2, 
 		write('Begginning Childs Profondeur : '), write(Profondeur), nl,
@@ -65,20 +64,25 @@ minimax(Plateau, Child, Profondeur, Value, X) :-
 %	ValeurARetenir : Meilleure valeur heuristique a transmettre au noeud parent
 % 	BestX : Meme fonctionnement que BestValue
 %	XaRetenir : Meme fonctionnement que ValeurARetenir
-loopChild(Plateau,8,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
+loopChild(Plateau,2,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
 loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- 
 		Profondeur1 is Profondeur+1,
+		Max is Profondeur1 mod 2, 
+		ChildElement is Child +1 ,  %Solve indice problems
+		((Max = 1) -> addElementToMatrix(b,ChildElement,Plateau, Plateau1) ; addElementToMatrix(a,ChildElement,Plateau, Plateau1) ),
 
 		write('    Begginning Next Element'), nl,
 		write('        Profondeur : '), write(Profondeur1), nl,
 		write('        Child :'), write(Child), nl,
 		write('        Adding Element'),nl,
 		write('        Entering minimax'), nl, 
+		write(Plateau1),nl,
+		
+		minimax(Plateau1, Child, Profondeur1, Value1, X1),
+		write('		  Retracting'),
+		retractElementFromMatrix(ChildElement,Plateau1,Plateau2),
 
-		%addElement(b,Child),
-		minimax(Plateau, Child, Profondeur1, Value1, X1),
-		%removeElement(Child),
-		Max is Profondeur1 mod 2, 
+
 		write('                             The best Value was'), write(BestValue),
 		write(' With X : '), write(BestX), nl,
 		((Max = 1) -> maximum(BestValue, Value1, BestValue1, BestX, Child, BestX1) ; minimum(BestValue, Value1, BestValue1, BestX, Child, BestX1)),
@@ -91,6 +95,4 @@ loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir)
 		write(' With X : '), write(BestX1), nl,
 		write('    Ending Next Element'),nl,nl,
 
-		loopChild(Plateau,Child1,Profondeur, BestValue1, ValeurARetenir, BestX1, XaRetenir).
-
-
+		loopChild(Plateau2,Child1,Profondeur, BestValue1, ValeurARetenir, BestX1, XaRetenir).
