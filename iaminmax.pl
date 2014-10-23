@@ -18,7 +18,25 @@ minimum(X,Y,Result) :- Result is Y,!.
 %	Profondeur : Profondeur dans l'arbre
 %	Valeur : Meilleure Valeur Selon l'algorithme minmax
 
+% Algorithm : 
+% function minimax(node, depth, maximizingPlayer)
+%     if depth = 0 or node is a terminal node
+%         return the heuristic value of node
+%     if maximizingPlayer
+%         bestValue := -∞
+%         for each child of node
+%             val := minimax(child, depth - 1, FALSE)
+%             bestValue := max(bestValue, val)
+%         return bestValue
+%     else
+%         bestValue := +∞
+%         for each child of node
+%             val := minimax(child, depth - 1, TRUE)
+%             bestValue := min(bestValue, val)
+%         return bestValue
+
 minimax(Plateau, Child, 2, Value) :- heuristic(Plateau, Value).
+minimax(Plateau, Child, Profondeur, Value) :- Child == 2, Profondeur == 1, nl,  Value is 1309409049409409, write('    //Result :'), write(Value), nl.
 %minimax(_,_,_,Value) :- %Un des deux a gagné, ou plateau Full,
 %						heuristic(Plateau,Value).
 minimax(Plateau, Child, Profondeur, Value) :- 
@@ -39,7 +57,7 @@ minimax(Plateau, Child, Profondeur, Value) :-
 %	Profondeur : Profondeur dans l'arbre
 %	BestValue : Meilleure valeur heuristique a l'iteration actuelle
 %	ValeurARetenir : Meilleure valeur heuristique a transmettre au noeud parent
-loopChild(Plateau,2,Profondeur, BestValue, ValeurARetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue,!.
+loopChild(Plateau,3,Profondeur, BestValue, ValeurARetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue,!.
 loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir) :- 
 		Profondeur1 is Profondeur+1,
 
@@ -59,8 +77,8 @@ loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir) :-
 
 		write('        Sortie minimax avec Valeur : '), write(Value1), nl,
 		write('        Removing Element From : '), write(Profondeur), write(' And Child : '), write(Child), nl,
-		write('              The best Value for now is '), write(BestValue1),nl,nl,
-		write('    Ending Next Element'),nl,
+		write('              The best Value for now is '), write(BestValue1),nl,
+		write('    Ending Next Element'),nl,nl,
 
 		loopChild(Plateau,Child1,Profondeur, BestValue1, ValeurARetenir).
 
