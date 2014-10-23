@@ -1,4 +1,5 @@
 :-use_module(matrice_utils).
+:-use_module(iaglouton).
 
 :-begin_tests(matrice_utils).
 
@@ -56,4 +57,11 @@ test(te8,fail) :- replace([[4,5,6],[8,10,11]],1,[1,2,3],L),L = [[1,2,3],[8,10,11
 test(teee8) :- replace([[4,5],[8,10,11]],0,[1,5,6],L),L = [[1,5,6],[8,10,11]].
 
 test(tee8) :- replace([[4,5,6],[8,10,11]],1,[1,2,3],L),L = [[4,5,6],[1,2,3]].
+
+% test getElemFromGrid and get_points_for_pawn
+
+test(t9) :- getElemFromGrid(1,1,[[a],[],[],[],[],[],[]], Pion), get_points_for_pawn(Pion, Points).
+test(t10) :- getElemFromGrid(1,1,[[b],[],[],[],[],[],[]], Pion), get_points_for_pawn(Pion, Points).
+test(t11) :- getElemFromGrid(1,1,[[],[],[],[],[],[],[]], Pion), get_points_for_pawn(Pion, Points).
+
 :-end_tests(matrice_utils).

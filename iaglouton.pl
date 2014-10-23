@@ -1,50 +1,10 @@
-%:- module(iaglouton, [iaglouton/3]).
+:- module(iaglouton, [iaglouton/6, get_points_for_pawn/2]).
 :-use_module(matrice_utils).
 
-%iaglouton(M, Xh, Xpos, LastX) :-
-%				nth1(LastX,M, Colonne), longueur(Colonne,Length_m),
-%				nth1(Length_m,Colonne, LastY)
-				
-				
-				
-				
-% ---------------------------		
-	
-countpointsleft(PlayedX, [A,B,C,D], S, Compteur) :- 
-				Xb is PlayedX-1, 
-				nth1(PlayedX,[A,B,C,D],Elem1),
-				nth1(Xb,[A,B,C,D],Elem1),
-				Sa is S + 1, 
-				countpointsleft(Xb,[A,B,C,D], Sa, Compteur), !.
-countpointsleft(_,_,_,S, Compteur) :- Compteur is S, !.
-
-countpointsright(PlayedX, [A,B,C,D], S, Compteur) :- 
-				Xb is PlayedX+1,
-				nth1(PlayedX,[A,B,C,D],Elem1),
-				nth1(Xb,[A,B,C,D],Elem1),
-				Sa is S + 1,
-				countpointsright(Xb,[A,B,C,D], Sa, Compteur), !.
-countpointsright(_,_,S, Compteur) :- Compteur is S, !.
-
-get_points_for_rect(PlayedX, [A,B,C,D], Total) :-
-				A \= a, B \= a, C \= a, D \= a,
-				countpointsleft(PlayedX, [A,B,C,D],0,Sb),
-				countpointsright(PlayedX, [A,B,C,D],0,Sa),	
-				Total is Sa+Sb+1, !.
-get_points_for_rect(PlayedX, [A,B,C,D], Total) :-
-				Total is 0, !.
-			
-			
-			
-			
-			
+		
 get_points_for_pawn(Pion, Points) :- not(nonvar(Pion)), Points is 0,!.
 get_points_for_pawn(a, Points) :- Points is -4,!.
 get_points_for_pawn(b, Points) :- Points is 1,!.
-
-%getElemFromGrid(1,1,[[a],[],[],[],[],[],[]], Pion), get_points_for_pawn(Pion, Points).
-%getElemFromGrid(1,1,[[b],[],[],[],[],[],[]], Pion), get_points_for_pawn(Pion, Points).
-%getElemFromGrid(1,1,[[],[],[],[],[],[],[]], Pion), get_points_for_pawn(Pion, Points).
 
 egaliser_a_zero(Total, Final) :- Total < 0 , Final is 0, !.
 egaliser_a_zero(Total, Final) :- Final is Total, !.
