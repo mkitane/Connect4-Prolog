@@ -188,6 +188,3 @@ iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
 iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
 				Xnext is Xcolonne+1,
 				iaglouton(M,Xnext,Totaltemp, Xtemp, TotalRetenu, Xretenu), !.
-%countcol :
-%countdiag1 :
-%countdiag2 :
