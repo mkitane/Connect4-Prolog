@@ -80,6 +80,8 @@ maximum(Totaltemp, Totalligne, Totalchoisi, Xtemp, Xcolonne, Xchoisi) :- Totalch
 
 iaglouton(_,8,Totaltemp, Xtemp, TotalRetenu, Xretenu) :- TotalRetenu is Totaltemp, Xretenu is Xtemp, !.
 iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :- 
+				get_column(M,Xcolonne,C),
+				not(column_is_full(C)),
 				addElementToMatrix(b,Xcolonne,M,MResult1),
 				write('Hey'), nl,
 				nth1(Xcolonne,MResult1,Colonne),
@@ -104,6 +106,9 @@ iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
 				X2 is Xcolonne+1,
 				iaglouton(MResult2,X2, TotalChoisi, Xchoisi, TotalRetenu, Xretenu), !.
 
+iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
+				Xnext is Xcolonne+1,
+				iaglouton(M,Xnext,Totaltemp, Xtemp, TotalRetenu, Xretenu), !.
 %countcol :
 %countdiag1 :
 %countdiag2 :
