@@ -1,6 +1,6 @@
-:- module(iaglouton, [runiaglouton/2, iaglouton/6, get_points_for_pawn/2]).
+:- module(iaglouton, [runiaglouton/2, iaglouton/6, get_points_for_pawn/2, heuristique/3]).
 :-use_module(matrice_utils).
-
+		
 		
 get_points_for_pawn(Pion, Points) :- not(nonvar(Pion)), Points is 0,!.
 get_points_for_pawn(a, Points) :- Points is -4,!.
@@ -112,25 +112,27 @@ maximum(Totaltemp, Totalligne, Totalchoisi, Xtemp, Xcolonne, Xchoisi) :- Totalte
 maximum(Totaltemp, Totalligne, Totalchoisi, Xtemp, Xcolonne, Xchoisi) :- Totalchoisi is Totaltemp, Xchoisi is Xtemp, !. 
 % compte le nb de points pr une ligne
 
+
+
+% Heuristique
+
+heuristique(M,X,Value) :-
+				nth1(X,M,Colonne),
+				longueur(Colonne,Y),
+				get_points_for_line(X,Y,M,0,0,Totalligne),
+				get_points_for_column(X,Y,MResult1,0,0,TotalColumn),
+				get_points_for_diago1(X,Y,MResult1,0,0,TotalDiago1),
+				get_points_for_diago2(X,Y,MResult1,0,0,TotalDiago2),
+				Value is Totalligne+TotalColumn+TotalDiago1+TotalDiago2.
+
 iaglouton(_,8,Totaltemp, Xtemp, TotalRetenu, Xretenu) :- TotalRetenu is Totaltemp, Xretenu is Xtemp, !.
 iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :- 
 				get_column(M,Xcolonne,C),
 				not(column_is_full(C)),
 				addElementToMatrix(b,Xcolonne,M,MResult1),
 				write('Hey'), nl,
-				nth1(Xcolonne,MResult1,Colonne),
-				write('Hey'), nl,
-				longueur(Colonne,Y),
-				write('Hey'), nl,
-
-				write('TotalTemporaire'), write(Totaltemp), 
-				nl, write('XTemporaire'), write(Xtemp),nl,
 				
-				get_points_for_line(Xcolonne,Y,MResult1,0,0,Totalligne),
-				get_points_for_column(Xcolonne,Y,MResult1,0,0,TotalColumn),
-				get_points_for_diago1(Xcolonne,Y,MResult1,0,0,TotalDiago1),
-				get_points_for_diago2(Xcolonne,Y,MResult1,0,0,TotalDiago2),
-				Total is Totalligne+TotalColumn+TotalDiago1+TotalDiago2,
+				heuristique(MResult1,Xcolonne,Total),
 
 				write('TotalLigne'), write(Totalligne), 
 				write('TotalColonne'), write(TotalColumn), 
