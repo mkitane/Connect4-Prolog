@@ -70,8 +70,8 @@ puissance :- p(Plateau),
 
 puissance :- p(Plateau), x(Xplayed),
 			 %iadefensive(Plateau,XRandom,Xplayed),
-			 % iarandom(Plateau,XRandom), 
-			 iadefatak(Plateau,XRandom,Xplayed),
+			 iarandom(Plateau,XRandom), 
+			 %iadefatak(Plateau,XRandom,Xplayed),
 			 addElement(b,XRandom), 
 			 p(PlateauDeux), checkFinJeu(XRandom,PlateauDeux),
 			 write('IA Won'),nl, print_matrix(PlateauDeux),!.
@@ -81,6 +81,46 @@ puissance :- p(Plateau),print_matrix(Plateau),
 
 
 
+:- dynamic y/1.
+y(1).
+% Deux Ia qui jouent ensemble
+puissanceAuto :- p(Plateau), 
+			 	all_full(Plateau), 
+			 	write('its a draw'), !.
+
+puissanceAuto :- p(Plateau), y(Yplayed),
+			 	%iadefensive(Plateau,I,Yplayed),
+			 	iarandom(Plateau,I),
+			 	%iadefatak(Plateau,I,Yplayed),
+				retract(x(_)),
+			 	assert(x(I)),
+			 	addElement(a,I),
+			 	
+			 	p(PlateauDeux), 
+			 	print_matrix(PlateauDeux),
+			 	checkFinJeu(I,PlateauDeux),
+			 	write('IA1 won'),nl, print_matrix(PlateauDeux)
+			 	,!.
+
+puissanceAuto :- p(Plateau), 
+			 	all_full(Plateau), 
+			 	write('its a draw'),nl, print_matrix(Plateau),
+				!.
+
+puissanceAuto :- p(Plateau), x(Xplayed),
+			 %iadefensive(Plateau,XRandom,Xplayed),
+			 %iarandom(Plateau,XRandom), 
+			 iadefatak(Plateau,XRandom,Xplayed),
+			 retract(y(_)),
+			 assert(y(Xplayed)),
+			 addElement(b,XRandom),
+			 
+			 p(PlateauDeux), 
+			 print_matrix(PlateauDeux),
+			 checkFinJeu(XRandom,PlateauDeux),
+			 write('IA2 won'),nl, print_matrix(PlateauDeux),!.
+
+puissanceAuto :- puissanceAuto,!.
 
 
 
