@@ -40,7 +40,7 @@ minimum(X, Y, Result, BestX, X1, BestX1) :- Result is Y, BestX1 is X1,!.
 %         return bestValue
 
 minimax(Plateau, Child, 2, Value, X) :- heuristic(Plateau, Value), X is Child.
-minimax(Plateau, Child, Profondeur, Value, X) :- Child == 2, Profondeur == 1, nl, X is Child, Value is 1309409049409409, write('    //Result :'), write(Value), nl.
+minimax(Plateau, Child, Profondeur, Value, X) :- Child == 2, Profondeur == 1, nl, X is Child, Value is -1309409049409409, write('    //Result :'), write(Value), nl.
 %minimax(_,_,_,Value) :- %Un des deux a gagné, ou plateau Full,
 %						heuristic(Plateau,Value).
 minimax(Plateau, Child, Profondeur, Value, X) :- 
@@ -65,7 +65,7 @@ minimax(Plateau, Child, Profondeur, Value, X) :-
 %	ValeurARetenir : Meilleure valeur heuristique a transmettre au noeud parent
 % 	BestX : Meme fonctionnement que BestValue
 %	XaRetenir : Meme fonctionnement que ValeurARetenir
-loopChild(Plateau,2,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
+loopChild(Plateau,8,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
 loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- 
 		Profondeur1 is Profondeur+1,
 
