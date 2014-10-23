@@ -1,4 +1,4 @@
-:- module(iaglouton, [iaglouton/6, get_points_for_pawn/2]).
+:- module(iaglouton, [runiaglouton/2, iaglouton/6, get_points_for_pawn/2]).
 :-use_module(matrice_utils).
 
 		
@@ -148,3 +148,6 @@ iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
 iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
 				Xnext is Xcolonne+1,
 				iaglouton(M,Xnext,Totaltemp, Xtemp, TotalRetenu, Xretenu), !.
+				
+runiaglouton(M,X) :-
+				iaglouton(M,1,0,1,Total,X).
