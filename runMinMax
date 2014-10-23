@@ -6,4 +6,4 @@
 export PATH=/Applications/SWI-Prolog.app/Contents/MacOS:$PATH
 clear
 clear
-swipl -s puissance.pl -g "iaminmax:minimax([[a],[a,a],[b,b],[],[],[],[]],0,0,Value)."
+swipl -s puissance.pl -g "iaminmax:minimax([[a],[a,a],[b,b],[],[],[],[]],0,0,Value, X)."
