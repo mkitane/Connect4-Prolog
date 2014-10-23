@@ -1,6 +1,7 @@
 :- module(iaminmax, [minimax/5]).
 :-use_module(matrice_utils).
-				
+:-use_module(finJeu).
+			
 heuristic(Plateau,Result) :- random_between(1,5000,Result), write('    //Result :'), write(Result), nl,!. 
 
 
@@ -39,9 +40,12 @@ minimum(X, Y, Result, BestX, X1, BestX1) :- Result is Y, BestX1 is X1,!.
 %             bestValue := min(bestValue, val)
 %         return bestValue
 
-minimax(Plateau,Child,Profondeur,Value,X) :- Xc is Child +1 , nth1(Xc,Plateau, Column), column_is_full(Column), X is Child, Value is 0,!.
+minimax(Plateau,Child,Profondeur,Value,X) :-  Xc is Child +1 , nth1(Xc,Plateau, Column), column_is_full(Column), X is Child, Value is 0,!.
+minimax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 , iaWon(Plateau,Xc), Value is 100000, X is Child,!.
+minimax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 ,playerWon(Plateau,Xc), Value is -100000, X is Child,!.
+minimax(Plateau,Child,Profondeur,Value, X) :- all_full(Plateau), Value is 0, X is Child,!.
+
 minimax(Plateau, Child, 2, Value, X) :- heuristic(Plateau, Value), X is Child,!.
-minimax(Plateau, Child, Profondeur, Value, X) :- Child == 2, Profondeur == 1, nl, X is Child, Value is -1309409049409409, write('    //Result :'), write(Value), nl,!.
 minimax(Plateau, Child, Profondeur, Value, X) :- 
 		Max is Profondeur mod 2, 
 		write('Begginning Childs Profondeur : '), write(Profondeur), nl,

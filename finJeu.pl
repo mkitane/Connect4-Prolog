@@ -1,4 +1,4 @@
-:- module(finJeu, [checkFinJeu/2, checkFinColonne/3, checkFinLigne/3, checkFinDiagonale1/3, checkFinDiagonale2/3]).
+:- module(finJeu, [checkFinJeu/2, checkFinColonne/3, checkFinLigne/3, checkFinDiagonale1/3, checkFinDiagonale2/3, iaWon/2, playerWon/2]).
 :-use_module(matrice_utils).
 
 
@@ -127,3 +127,6 @@ checkFinJeu(X,L) :-
 					nth1(X,L,Column),
 					matrice_utils:longueur(Column,Y),
 					(checkFinColonne(X,Y,L);checkFinLigne(X,Y,L);checkFinDiagonale1(X,Y,L);checkFinDiagonale2(X,Y,L)).
+
+iaWon(M,X) :- nth1(X,M,Column),longueur(Column,Y), getElemFromGrid(X,Y,M,Pion), nonvar(Pion), Pion == b, checkFinJeu(X,M),!.
+playerWon(M,X) :- nth1(X,M,Column), longueur(Column,Y),getElemFromGrid(X,Y,M,Pion), nonvar(Pion), Pion == a, checkFinJeu(X,M),!. 
