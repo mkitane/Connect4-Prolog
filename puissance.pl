@@ -3,6 +3,7 @@
 :- use_module(finJeu).
 :- use_module(iadefensive).
 :- use_module(iadefatak).
+:- use_module(iaminmax).
 
 
 %Predicat pour dessiner soit le pion du joueur a en rouge, soit celui du joueur b en vert ou un espace si la case est vide

@@ -24,6 +24,9 @@ nthElem(N, L, X):- nth1(N, L, X).
 ajoutFin(X,[],[X]).
 ajoutFin(X,[Y|L1],[Y|L2]):- ajoutFin(X,L1,L2),longueur([Y|L1],N), N<6 .
 
+retireFin([_],[]).
+retireFin([Head|L1], [Head|WithoutLast]) :- retireFin(L1, WithoutLast), !.
+
 
 % Compare si deux elements dune liste sont les memes. 
 isSame(X,Y,L) :- nth1(X,L,Z), nth1(Y,L,Z).
@@ -35,9 +38,11 @@ replace([_|T], 0, X, [X|T]).
 replace([H|T], I, X, [H|R]):- I > -1, NI is I-1, replace(T, NI, X, R), !.
 replace(L, _, _, L).
 
-addElement(A,I) :- p(X), nthElem(I,X,Elem), ajoutFin(A,Elem,Newcolonne), Indice is I-1, replace(X,Indice,Newcolonne,R), retract(p(_)) ,assert(p(R)), !.
+addElement(A,I) :- p(X), nthElem(I,X,Elem), ajoutFin(A,Elem,Newcolonne), 
+				   Indice is I-1, replace(X,Indice,Newcolonne,R), retract(p(_)) ,assert(p(R)), !.
 
-
+retractElement(I) :- p(X), nthElem(I,X,Elem), retireFin(Elem,Newcolonne), 
+					 Indice is I-1, replace(X,Indice,Newcolonne,R), retract(p(_)), assert(p(R)), !. 
 
 %%Utilitaires pour avoir le nombre de voisin en lignes/colonne etc..
 
