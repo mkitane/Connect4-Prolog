@@ -6,7 +6,7 @@ get_points_for_pawn(Pion, Points) :- not(nonvar(Pion)), Points is 0,!.
 get_points_for_pawn(a, Points) :- Points is -4,!.
 get_points_for_pawn(b, Points) :- Points is 1,!.
 
-egaliser_a_zero(Total, Final) :- Total < 0 , Final is 0, !.
+egaliser_a_zero(Total, Final) :- Total < 0 , Final is Total, !.
 egaliser_a_zero(Total, Final) :- Final is Total, !.
 
 % --------------------- Points for line

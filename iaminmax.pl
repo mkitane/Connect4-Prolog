@@ -1,9 +1,7 @@
-:- module(iaminmax, [minimax/5]).
+:- module(iaminmax, [iaminmax/2, minmax/5]).
 :-use_module(matrice_utils).
 :-use_module(finJeu).
-			
-heuristic(Plateau,Result) :- random_between(1,5000,Result), write('    //Result :'), write(Result), nl,!. 
-
+:-use_module(iaglouton).
 
 % Mode d'emploi : Predicat iteratif qui renvoie la valeur maximale entre deux valeurs
 %				  Il renvoie aussi le coup à jouer. 
@@ -24,29 +22,29 @@ minimum(X, Y, Result, BestX, X1, BestX1) :- Result is Y, BestX1 is X1,!.
 %	X : Coup à jouer correspondant à la valeur choisie
 
 % Algorithm : 
-% function minimax(node, depth, maximizingPlayer)
+% function minmax(node, depth, maximizingPlayer)
 %     if depth = 0 or node is a terminal node
 %         return the heuristic value of node
 %     if maximizingPlayer
 %         bestValue := -∞
 %         for each child of node
-%             val := minimax(child, depth - 1, FALSE)
+%             val := minmax(child, depth - 1, FALSE)
 %             bestValue := max(bestValue, val)
 %         return bestValue
 %     else
 %         bestValue := +∞
 %         for each child of node
-%             val := minimax(child, depth - 1, TRUE)
+%             val := minmax(child, depth - 1, TRUE)
 %             bestValue := min(bestValue, val)
 %         return bestValue
 
-minimax(Plateau,Child,Profondeur,Value,X) :-  Xc is Child +1 , nth1(Xc,Plateau, Column), column_is_full(Column), X is Child, Value is 0,!.
-minimax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 , iaWon(Plateau,Xc), Value is 100000, X is Child,!.
-minimax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 ,playerWon(Plateau,Xc), Value is -100000, X is Child,!.
-minimax(Plateau,Child,Profondeur,Value, X) :- all_full(Plateau), Value is 0, X is Child,!.
+minmax(Plateau,Child,Profondeur,Value, X) :-  Xc is Child +1 , nth1(Xc,Plateau, Column), column_is_full(Column), X is Child, Value is 0,!.
+minmax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 , iaWon(Plateau,Xc), Value is 100000, X is Child,!.
+minmax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 ,playerWon(Plateau,Xc), Value is -100000, X is Child,!.
+minmax(Plateau,Child,Profondeur,Value, X) :- all_full(Plateau), Value is 0, X is Child,!.
+minmax(Plateau, Child, 3, Value, X) :- Xc is Child+1, heuristique(Plateau,Xc, Value), write('   		//Result'), write(Value), nl,nl, X is Child,!.
 
-minimax(Plateau, Child, 2, Value, X) :- heuristic(Plateau, Value), X is Child,!.
-minimax(Plateau, Child, Profondeur, Value, X) :- 
+minmax(Plateau, Child, Profondeur, Value, X) :- 
 		Max is Profondeur mod 2, 
 		write('Begginning Childs Profondeur : '), write(Profondeur), nl,
 
@@ -68,7 +66,7 @@ minimax(Plateau, Child, Profondeur, Value, X) :-
 %	ValeurARetenir : Meilleure valeur heuristique a transmettre au noeud parent
 % 	BestX : Meme fonctionnement que BestValue
 %	XaRetenir : Meme fonctionnement que ValeurARetenir
-loopChild(Plateau,2,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
+loopChild(Plateau,7,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
 loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- 
 		Profondeur1 is Profondeur+1,
 		Max is Profondeur1 mod 2, 
@@ -79,10 +77,10 @@ loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir)
 		write('        Profondeur : '), write(Profondeur1), nl,
 		write('        Child :'), write(Child), nl,
 		write('        Adding Element'),nl,
-		write('        Entering minimax'), nl, 
+		write('        Entering minmax'), nl, 
 		write(Plateau1),nl,
 		
-		minimax(Plateau1, Child, Profondeur1, Value1, X1),
+		minmax(Plateau1, Child, Profondeur1, Value1, X1),
 		write('		  Retracting'),
 		retractElementFromMatrix(ChildElement,Plateau1,Plateau2),
 
@@ -93,10 +91,14 @@ loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir)
 		Child1 is Child+1,
 
 
-		write('        Sortie minimax avec Valeur : '), write(Value1), nl,
+		write('        Sortie minmax avec Valeur : '), write(Value1), nl,
 		write('        Removing Element From : '), write(Profondeur), write(' And Child : '), write(Child), nl,
 		write('              The best Value for now is '), write(BestValue1),
 		write(' With X : '), write(BestX1), nl,
 		write('    Ending Next Element'),nl,nl,
 
 		loopChild(Plateau2,Child1,Profondeur, BestValue1, ValeurARetenir, BestX1, XaRetenir).
+
+
+%Introduction de Xrand pour indices
+iaminmax(Plateau, XRand) :- minmax(Plateau,0,0,Value,Xc), XRand is Xc +1,  !.

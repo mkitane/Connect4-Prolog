@@ -70,8 +70,9 @@ puissance :- p(Plateau),
 
 puissance :- p(Plateau), x(Xplayed),
 			 %iadefensive(Plateau,XRandom,Xplayed),
-			 iarandom(Plateau,XRandom), 
+			 %iarandom(Plateau,XRandom), 
 			 %iadefatak(Plateau,XRandom,Xplayed),
+			 iaminmax(Plateau,XRandom), 
 			 addElement(b,XRandom), 
 			 p(PlateauDeux), checkFinJeu(XRandom,PlateauDeux),
 			 write('IA Won'),nl, print_matrix(PlateauDeux),!.
