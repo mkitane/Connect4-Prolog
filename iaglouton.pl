@@ -19,7 +19,6 @@ egaliser_a_zero(Total, Final) :- Final is Total, !.
 
 get_points_for_line(_,_,_,4,Points, Cpt) :- Cpt is Points, !.	
 get_points_for_line(X, Y, M, Offset, Points, Cpt) :-
-				write('HMAR'), nl,
 				RectHead is X-Offset,
 				RectHead > 0, RectHead < 5,
 				Xa is X-Offset,
@@ -38,9 +37,8 @@ get_points_for_line(X, Y, M, Offset, Points, Cpt) :-
 
 				Total is Points1+Points2+Points3+Points4,
 				get_total_pondere(Total,TotalFinal),
-				write('PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE : '), write(TotalPondere),nl,
 				%egaliser_a_zero(TotalPondere, TotalFinal),
-				write('TotalFinal : '), write(TotalFinal),nl,
+				%write('TotalFinal : '), write(TotalFinal),nl,
 				Pointsa is Points + TotalFinal,
 				Iteration is Offset+1,
 				get_points_for_line(X, Y, M, Iteration, Pointsa,Cpt), !.
@@ -66,17 +64,16 @@ get_points_for_column(X, Y, M, Offset, Points, Cpt) :-
 				getElemFromGrid(X,Yd,M,Pion4),
 
 				get_points_for_pawn(Pion1,Points1),
-				write('PION : '), write(Xa), write(' '), write(Y), write(' '), write(Pion1), write(' points :'), write(Points1),nl,
+				%write('PION : '), write(Xa), write(' '), write(Y), write(' '), write(Pion1), write(' points :'), write(Points1),nl,
 				get_points_for_pawn(Pion2,Points2),
-				write('PION : '), write(Xb), write(' '), write(Y), write(' '), write(Pion2), write(' points :'), write(Points2),nl,
+				%write('PION : '), write(Xb), write(' '), write(Y), write(' '), write(Pion2), write(' points :'), write(Points2),nl,
 				get_points_for_pawn(Pion3,Points3),
-				write('PION : '), write(Xc), write(' '), write(Y), write(' '), write(Pion3), write(' points :'), write(Points3),nl,
+				%write('PION : '), write(Xc), write(' '), write(Y), write(' '), write(Pion3), write(' points :'), write(Points3),nl,
 				get_points_for_pawn(Pion4,Points4),
-				write('PION : '), write(Xd), write(' '), write(Y), write(' '), write(Pion4), write(' points :'), write(Points4),nl,
+				%write('PION : '), write(Xd), write(' '), write(Y), write(' '), write(Pion4), write(' points :'), write(Points4),nl,
 
 				Total is Points1+Points2+Points3+Points4,
 				get_total_pondere(Total,TotalFinal),
-				write('PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE : '), write(TotalPondere),nl,
 				%egaliser_a_zero(TotalPondere, TotalFinal),
 				Pointsa is Points + TotalFinal,
 				Iteration is Offset+1,
@@ -108,7 +105,6 @@ get_points_for_diago1(X, Y, M, Offset, Points, Cpt) :-
 
 				Total is Points1+Points2+Points3+Points4,
 				get_total_pondere(Total,TotalFinal),
-				write('PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE : '), write(TotalPondere),nl,
 				%egaliser_a_zero(TotalPondere, TotalFinal),
 				Pointsa is Points + TotalFinal,
 				Iteration is Offset+1,
@@ -140,7 +136,6 @@ get_points_for_diago2(X, Y, M, Offset, Points, Cpt) :-
 
 				Total is Points1+Points2+Points3+Points4,
 				get_total_pondere(Total,TotalFinal),
-				write('PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE PONDERE : '), write(TotalPondere),nl,
 				%egaliser_a_zero(TotalPondere, TotalFinal),
 				Pointsa is Points + TotalFinal,
 				Iteration is Offset+1,
@@ -163,15 +158,14 @@ maximum(Totaltemp, Totalligne, Totalchoisi, Xtemp, Xcolonne, Xchoisi) :- Totalch
 heuristique(M,X,Value) :-
 				nth1(X,M,Colonne),
 				longueur(Colonne,Y),
-				write('BEGIN BEGIN BEGIN ------------------------------------ '),
 				get_points_for_line(X,Y,M,0,0,Totalligne),
-				write('POINTS POINTS POINTS POINTS POINTS POINTS POINTS POINTS '), write(X), write(' '), write(Y), write(' '), write(Totalligne),nl,
+				%write('POINTS POINTS POINTS POINTS POINTS POINTS POINTS POINTS '), write(X), write(' '), write(Y), write(' '), write(Totalligne),nl,
 				get_points_for_column(X,Y,M,0,0,TotalColumn),
-				write('TOTAL COLUMN :'), write(TotalColumn), nl,
+				%write('TOTAL COLUMN :'), write(TotalColumn), nl,
 				get_points_for_diago1(X,Y,M,0,0,TotalDiago1),
-				write('TOTAL DIAGO 1 :'), write(TotalDiago1), nl,
+				%write('TOTAL DIAGO 1 :'), write(TotalDiago1), nl,
 				get_points_for_diago2(X,Y,M,0,0,TotalDiago2),
-				write('TOTAL DIAGO 2 :'), write(TotalDiago2), nl,
+				%write('TOTAL DIAGO 2 :'), write(TotalDiago2), nl,
 				Value is Totalligne+TotalColumn+TotalDiago1+TotalDiago2.
 
 iaglouton(_,8,Totaltemp, Xtemp, TotalRetenu, Xretenu) :- TotalRetenu is Totaltemp, Xretenu is Xtemp, !.
@@ -179,18 +173,17 @@ iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
 				get_column(M,Xcolonne,C),
 				not(column_is_full(C)),
 				addElementToMatrix(b,Xcolonne,M,MResult1),
-				write('Hey'), nl,
 				
 				heuristique(MResult1,Xcolonne,Total),
 
-				write('TotalLigne'), write(Totalligne), 
-				write('TotalColonne'), write(TotalColumn), 
-				nl, write('XLigne'), write(Xcolonne),nl,
+				%write('TotalLigne'), write(Totalligne), 
+				%write('TotalColonne'), write(TotalColumn), 
+				%nl, write('XLigne'), write(Xcolonne),nl,
 				
 				maximum(Totaltemp, Total, TotalChoisi, Xtemp, Xcolonne, Xchoisi),
 				
-				write('TotalChoisi'), write(TotalChoisi), 
-				nl, write('Xchoisi'), write(Xchoisi),nl,
+				%write('TotalChoisi'), write(TotalChoisi), 
+				%nl, write('Xchoisi'), write(Xchoisi),nl,
 				
 				retractElementFromMatrix(Xcolonne,MResult1,MResult2),
 				X2 is Xcolonne+1,

@@ -71,9 +71,9 @@ puissance :- p(Plateau),
 
 puissance :- p(Plateau),
 			 %x(Xplayed),iadefensive(Plateau,XRandom,Xplayed),
-			 x(Xplayed), iadefatak(Plateau,XRandom,Xplayed),
+			 %x(Xplayed), iadefatak(Plateau,XRandom,Xplayed),
 			 %iarandom(Plateau,XRandom), 
-			 %iaminmax(Plateau,XRandom), 
+			 iaminmax(Plateau,XRandom), 
 			 %runiaglouton(Plateau, XRandom),
 
 			 addElement(b,XRandom), 
