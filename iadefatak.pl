@@ -19,7 +19,7 @@
 %	Xgagnant : colonne permettant de gagner
 %	X : Colonne a veifiée
 
-canwin(M,Xgagnant,8).
+canwin(_,_,8).
 canwin(M,Xgagnant,X):-  
                 nth1(X,M, Colonne),longueur(Colonne, Y), Y<6,
                 nth1(Y,Colonne,Color),
@@ -39,7 +39,7 @@ canwin(M,Xgagnant,X) :- Xsuivant is X+1, canwin(M,Xgagnant,Xsuivant),!.
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canwin1g(M,Xg,8).
+canwin1g(_,_,8).
 canwin1g(M,Xgagnant,X):-  
                 nth1(X,M, Colonne),longueur(Colonne, Y),
                 nth1(Y,Colonne,Color),
@@ -59,7 +59,7 @@ canwin1g(M,Xgagnant,X) :- Xsuivant is X+1, canwin1g(M,Xgagnant,Xsuivant),!.
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canwin1d(M,Xg,5).
+canwin1d(_,_,5).
 canwin1d(M,Xgagnant,X):-  
 				nth1(X,M, Colonne),longueur(Colonne, Y),
 				nth1(Y,Colonne,Color),
@@ -79,7 +79,7 @@ canwin1d(M,Xgagnant,X) :- Xsuivant is X+1, canwin1d(M,Xgagnant,Xsuivant),!.
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canwin1m1(M,Xg,5).
+canwin1m1(_,_,5).
 canwin1m1(M,Xgagnant,X):-  
 				nth1(X,M, Colonne),longueur(Colonne, Y),
 				nth1(Y,Colonne,Color),
@@ -102,7 +102,7 @@ canwin1m1(M,Xgagnant,X) :- Xsuivant is X+1, canwin1m1(M,Xgagnant,Xsuivant),!.
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canwin1m2(M,Xg,8).
+canwin1m2(_,_,8).
 canwin1m2(M,Xgagnant,X):-  
 				nth1(X,M, Colonne),longueur(Colonne, Y),
 				nth1(Y,Colonne,Color),
@@ -140,7 +140,7 @@ canwin1m2(M,Xgagnant,X) :- Xsuivant is X+1, canwin1m2(M,Xgagnant,Xsuivant),!.
 %	Xgagnant : colonne permettant de gagner
 %	X : Colonne a veifiée
 
-canblock(M,Xgagnant,8).
+canblock(_,_,8).
 canblock(M,Xgagnant,X):-  
                         nth1(X,M, Colonne),longueur(Colonne, Y), Y<6,
                         nth1(Y,Colonne,Color),
@@ -166,7 +166,7 @@ canblock(M,Xgagnant,X) :- Xsuivant is X+1, canblock(M,Xgagnant,Xsuivant),!.
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canblock1g(M,Xg,8).
+canblock1g(_,_,8).
 canblock1g(M,Xgagnant,X):-  
 				nth1(X,M, Colonne),longueur(Colonne, Y),
 				nth1(Y,Colonne,Color),
@@ -185,7 +185,7 @@ canblock1g(M,Xgagnant,X) :- Xsuivant is X+1, canblock1g(M,Xgagnant,Xsuivant),!.
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canblock1d(M,Xg,8).
+canblock1d(_,_,8).
 canblock1d(M,Xgagnant,X):-  
 				nth1(X,M, Colonne),longueur(Colonne, Y),
 				nth1(Y,Colonne,Color),
@@ -205,7 +205,7 @@ canblock1d(M,Xgagnant,X) :- Xsuivant is X+1, canblock1d(M,Xgagnant,Xsuivant),!.
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canblock1m1(M,Xg,5).
+canblock1m1(_,_,5).
 canblock1m1(M,Xgagnant,X):-  
 				nth1(X,M, Colonne),longueur(Colonne, Y),
 				nth1(Y,Colonne,Color),
@@ -225,7 +225,7 @@ canblock1m1(M,Xgagnant,X) :- Xsuivant is X+1, canblock1m1(M,Xgagnant,Xsuivant),!
 % 	M : La grille de jeu
 %	Xgagnant : colonne permettant de gagner
 %	X : colonne à verifier
-canblock1m2(M,Xg,8).
+canblock1m2(_,_,8).
 canblock1m2(M,Xgagnant,X):-  
 				nth1(X,M, Colonne),longueur(Colonne, Y),
 				nth1(Y,Colonne,Color),
