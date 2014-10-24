@@ -33,9 +33,9 @@ iadefensive(M,Xh,Xpos) :-
 iadefensive(M,Xh,Xpos) :- 
 			nth1(Xpos,M, Colonne),  %Get Column and check size
 			longueur(Colonne, N),
-			get_consecutive_neighbors_ligne(Xpos,N,M,Cpt),
+			get_consecutive_neighbors_ligne(Xpos,N,M,_),
 			Xpos=7,	
 			Xh is Xpos-3,
 			N=<5,!.
 
-iadefensive(M,Xh,Xpos) :- iarandom(M,Xh),!.
+iadefensive(M,Xh,_) :- iarandom(M,Xh),!.
