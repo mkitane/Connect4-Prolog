@@ -10,7 +10,7 @@ get_total_pondere(1, Total2) :- Total2 is 1, !.
 get_total_pondere(2, Total2) :- Total2 is 8, !.
 get_total_pondere(3, Total2) :- Total2 is 32, !.
 get_total_pondere(4, Total2) :- Total2 is 1000, !.
-get_total_pondere(Total1, Total2) :- Total2 is -16, !.
+get_total_pondere(_, Total2) :- Total2 is -16, !.
 
 egaliser_a_zero(Total, Final) :- Total < 0 , Final is Total, !.
 egaliser_a_zero(Total, Final) :- Final is Total, !.
@@ -147,8 +147,8 @@ get_points_for_diago2(X, Y, M, Offset, Points, Cpt) :-
 				get_points_for_diago2(X, Y, M, Iteration, Pointsa,Cpt), !.	
 				
 
-maximum(Totaltemp, Totalligne, Totalchoisi, Xtemp, Xcolonne, Xchoisi) :- Totaltemp < Totalligne, Totalchoisi is Totalligne,  Xchoisi is Xcolonne, !.
-maximum(Totaltemp, Totalligne, Totalchoisi, Xtemp, Xcolonne, Xchoisi) :- Totalchoisi is Totaltemp, Xchoisi is Xtemp, !. 
+maximum(Totaltemp, Totalligne, Totalchoisi, _, Xcolonne, Xchoisi) :- Totaltemp < Totalligne, Totalchoisi is Totalligne,  Xchoisi is Xcolonne, !.
+maximum(Totaltemp, _, Totalchoisi, Xtemp, _, Xchoisi) :- Totalchoisi is Totaltemp, Xchoisi is Xtemp, !. 
 % compte le nb de points pr une ligne
 
 
@@ -193,5 +193,4 @@ iaglouton(M,Xcolonne,Totaltemp, Xtemp, TotalRetenu, Xretenu) :-
 				Xnext is Xcolonne+1,
 				iaglouton(M,Xnext,Totaltemp, Xtemp, TotalRetenu, Xretenu), !.
 				
-runiaglouton(M,X) :-
-				iaglouton(M,1,0,1,Total,X).
+runiaglouton(M,X) :- iaglouton(M,1,0,1,_,X).
