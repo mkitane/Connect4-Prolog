@@ -38,11 +38,11 @@ minimum(X, Y, Result, BestX, X1, BestX1) :- Result is Y, BestX1 is X1,!.
 %             bestValue := min(bestValue, val)
 %         return bestValue
 
-minmax(Plateau,Child,Profondeur,Value, X) :-  Xc is Child +1 , nth1(Xc,Plateau, Column), column_is_full(Column), X is Child, Value is 0,!.
+minmax(Plateau,Child,Profondeur,Value, X) :-  Profondeur \= 0, Xc is Child +1 ,  nth1(Xc,Plateau, Column), column_is_full(Column),nl, X is Child, Value is 0,!.
 minmax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 , iaWon(Plateau,Xc), Value is 100000, X is Child,!.
 minmax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 ,playerWon(Plateau,Xc), Value is -100000, X is Child,!.
 minmax(Plateau,Child,Profondeur,Value, X) :- all_full(Plateau), Value is 0, X is Child,!.
-minmax(Plateau, Child, 3, Value, X) :- Xc is Child+1, heuristique(Plateau,Xc, Value), write('   		//Result'), write(Value), nl,nl, X is Child,!.
+minmax(Plateau, Child, 2, Value, X) :- write('Test ICI'), Xc is Child+1,  write('MDR'),nl, heuristique(Plateau,Xc, Value), write('   		//Result'), write(Value), nl,nl, X is Child,!.
 
 minmax(Plateau, Child, Profondeur, Value, X) :- 
 		Max is Profondeur mod 2, 
@@ -66,33 +66,38 @@ minmax(Plateau, Child, Profondeur, Value, X) :-
 %	ValeurARetenir : Meilleure valeur heuristique a transmettre au noeud parent
 % 	BestX : Meme fonctionnement que BestValue
 %	XaRetenir : Meme fonctionnement que ValeurARetenir
+
+%Si la colonne est full pour ce fils, on passe au suivant
 loopChild(Plateau,7,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
 loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- 
+		Xc is Child +1 , nth1(Xc,Plateau, Column), 
+		(column_is_full(Column) ->  ChildCol is Child + 1 ; ChildCol is Child),
+
 		Profondeur1 is Profondeur+1,
 		Max is Profondeur1 mod 2, 
-		ChildElement is Child +1 ,  %Solve indice problems
+		ChildElement is ChildCol +1 ,  %Solve indice problems
 		((Max = 1) -> addElementToMatrix(b,ChildElement,Plateau, Plateau1) ; addElementToMatrix(a,ChildElement,Plateau, Plateau1) ),
 
 		write('    Begginning Next Element'), nl,
 		write('        Profondeur : '), write(Profondeur1), nl,
-		write('        Child :'), write(Child), nl,
+		write('        Child :'), write(ChildCol), nl,
 		write('        Adding Element'),nl,
 		write('        Entering minmax'), nl, 
 		write(Plateau1),nl,
 		
-		minmax(Plateau1, Child, Profondeur1, Value1, X1),
-		write('		  Retracting'),
+		minmax(Plateau1, ChildCol, Profondeur1, Value1, X1),
+		write('		  Retracting'),nl,
 		retractElementFromMatrix(ChildElement,Plateau1,Plateau2),
 
 
 		write('                             The best Value was'), write(BestValue),
 		write(' With X : '), write(BestX), nl,
-		((Max = 1) -> maximum(BestValue, Value1, BestValue1, BestX, Child, BestX1) ; minimum(BestValue, Value1, BestValue1, BestX, Child, BestX1)),
-		Child1 is Child+1,
+		((Max = 1) -> maximum(BestValue, Value1, BestValue1, BestX, ChildCol, BestX1) ; minimum(BestValue, Value1, BestValue1, BestX, ChildCol, BestX1)),
+		Child1 is ChildCol+1,
 
 
 		write('        Sortie minmax avec Valeur : '), write(Value1), nl,
-		write('        Removing Element From : '), write(Profondeur), write(' And Child : '), write(Child), nl,
+		write('        Removing Element From : '), write(Profondeur), write(' And Child : '), write(Child1), nl,
 		write('              The best Value for now is '), write(BestValue1),
 		write(' With X : '), write(BestX1), nl,
 		write('    Ending Next Element'),nl,nl,

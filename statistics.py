@@ -32,6 +32,8 @@ if __name__ == "__main__":
 		elif regexDraw.match(output) : 
 			finalData['draw'] = finalData['draw']+1
 
+		print x 
+
 
 	print 'Finaly Finished'
 	print finalData
