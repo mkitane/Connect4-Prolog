@@ -289,116 +289,130 @@ canblockdiag4(M,Xgagnant,X) :-nth1(X,M,Colonne),longueur(Colonne,Y),
 %gagne colonne
 iadefatak(M,Xh,_) :- 
                 canwin(M,Xgagnant,1),
-                write('Can win launched'), write(Xgagnant),nl,
+                %write('Can win launched'), write(Xgagnant),nl,
                 nonvar(Xgagnant), 
                 Xh is Xgagnant,
-                write('Non Randomize'),nl,!.
+                %write('Non Randomize'),nl,
+                !.
 
 %gagne ligne gauche
 iadefatak(M,Xh,_) :- 
 				canwin1g(M,Xgagnant,2),
-				write('Can win1g launched'), write(Xgagnant),nl,
+				%write('Can win1g launched'), write(Xgagnant),nl,
 				nonvar(Xgagnant), 
 				Xh is Xgagnant,
-				write('Non Randomize'),nl,!.      
+				%write('Non Randomize'),nl,
+				!.      
 				
 %gagne ligne droite				          
 iadefatak(M,Xh,_) :- 
 				canwin1d(M,Xgagnant,1),
-				write('Can win1d launched'), write(Xgagnant),nl,
+				%write('Can win1d launched'), write(Xgagnant),nl,
 				nonvar(Xgagnant), 
 				Xh is Xgagnant,
-				write('Non Randomize'),nl,!.
+				%write('Non Randomize'),nl,
+				!.
 				
 %gagne ligne milieu				          
  iadefatak(M,Xh,_) :- 
                          canwin1m1(M,Xgagnant,1),
-                         write('Can win1m1 launched'), write(Xgagnant),nl,
+                         %write('Can win1m1 launched'), write(Xgagnant),nl,
                          nonvar(Xgagnant), 
                          Xh is Xgagnant,
-                         write('Non Randomize'),nl,!.	
+                         %write('Non Randomize'),nl,
+                         !.	
  
  %gagne ligne milieu				          
  iadefatak(M,Xh,_) :- 
                          canwin1m2(M,Xgagnant,3),
-                         write('Can win1m2 launched'), write(Xgagnant),nl,
+                         %write('Can win1m2 launched'), write(Xgagnant),nl,
                          nonvar(Xgagnant), 
                          Xh is Xgagnant,
-                         write('Non Randomize'),nl,!.				
+                         %write('Non Randomize'),nl,
+                         !.				
  
 %bloque colonne adversaire				          				                          
 iadefatak(M,Xh,_) :- 
                         canblock(M,Xgagnant,1),
-                        write('Can block launched'), write(Xgagnant),nl,
+                        %write('Can block launched'), write(Xgagnant),nl,
                         nonvar(Xgagnant), 
                         Xh is Xgagnant,
-                        write('Non Randomize'),nl,!.      
+                        %write('Non Randomize'),nl,
+                        !.      
 
 %bloque ligne adversaire	a gauche			          				                          
 iadefatak(M,Xh,_) :- 
                         canblock1g(M,Xgagnant,2),
-                        write('Can block1g launched'), write(Xgagnant),nl,
+                        %write('Can block1g launched'), write(Xgagnant),nl,
                         nonvar(Xgagnant), 
                         Xh is Xgagnant,
-                        write('Non Randomize'),nl,!.   
+                        %write('Non Randomize'),nl,
+                        !.   
 
 %bloque ligne adversaire	a droite		          				                          
 iadefatak(M,Xh,_) :- 
                         canblock1d(M,Xgagnant,1),
-                        write('Can block1d launched'), write(Xgagnant),nl,
+                        %write('Can block1d launched'), write(Xgagnant),nl,
                         nonvar(Xgagnant), 
                         Xh is Xgagnant,
-                        write('Non Randomize'),nl,!. 
+                        %write('Non Randomize'),nl,
+                        !. 
                         
 %bloque ligne milieu				          
  iadefatak(M,Xh,_) :- 
                          canblock1m1(M,Xgagnant,1),
-                         write('Can block1m1 launched'), write(Xgagnant),nl,
+                         %write('Can block1m1 launched'), write(Xgagnant),nl,
                          nonvar(Xgagnant), 
                          Xh is Xgagnant,
-                         write('Non Randomize'),nl,!.	
+                         %write('Non Randomize'),nl,
+                         !.	
                          
                          
  %bloque ligne milieu				          
  iadefatak(M,Xh,_) :- 
                          canblock1m2(M,Xgagnant,3),
-                         write('Can block1m2 launched'), write(Xgagnant),nl,
+                         %write('Can block1m2 launched'), write(Xgagnant),nl,
                          nonvar(Xgagnant), 
                          Xh is Xgagnant,
-                         write('Non Randomize'),nl,!.		
+                         %write('Non Randomize'),nl,
+                         !.		
                          			
                                                              
 %bloque diagonale				          
 iadefatak(M,Xh,Xpos) :- 
                         canblockdiag1(M,Xgagnant,Xpos),
-                        write('Can blockdiag1 launched'), write(Xgagnant),nl,
+                        %write('Can blockdiag1 launched'), write(Xgagnant),nl,
                         nonvar(Xgagnant), 
                         Xh is Xgagnant,
-                        write('Non Randomize'),nl,!.	
+                        %write('Non Randomize'),nl,
+                        !.	
                         
 %bloque diagonale				          
 iadefatak(M,Xh,Xpos) :- 
                         canblockdiag2(M,Xgagnant,Xpos),
-                        write('Can blockdiag2 launched'), write(Xgagnant),nl,
+                        %write('Can blockdiag2 launched'), write(Xgagnant),nl,
                         nonvar(Xgagnant), 
                         Xh is Xgagnant,
-                        write('Non Randomize'),nl,!.	
+                        %write('Non Randomize'),nl,
+                        !.	
 
 %bloque diagonale				          
 iadefatak(M,Xh,Xpos) :- 
                         canblockdiag3(M,Xgagnant,Xpos),
-                        write('Can blockdiag3 launched'), write(Xgagnant),nl,
+                        %write('Can blockdiag3 launched'), write(Xgagnant),nl,
                         nonvar(Xgagnant), 
                         Xh is Xgagnant,
-                        write('Non Randomize'),nl,!.	
+                        %write('Non Randomize'),nl,
+                        !.	
 
 %bloque diagonale				          
 iadefatak(M,Xh,Xpos) :- 
                         canblockdiag4(M,Xgagnant,Xpos),
-                        write('Can blockdiag4 launched'), write(Xgagnant),nl,
+                        %write('Can blockdiag4 launched'), write(Xgagnant),nl,
                         nonvar(Xgagnant), 
                         Xh is Xgagnant,
-                        write('Non Randomize'),nl,!.	                                                                       
+                        %write('Non Randomize'),nl,
+                        !.	                                                                       
                                                  
                  
 %joue a gauche ou a droite de la derniere position

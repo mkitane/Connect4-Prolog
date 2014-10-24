@@ -69,12 +69,13 @@ puissance :- p(Plateau),
 			 write('Its a draw'),nl, print_matrix(Plateau),
 			 !.
 
-puissance :- p(Plateau), x(Xplayed),
-			 %iadefensive(Plateau,XRandom,Xplayed),
+puissance :- p(Plateau),
+			 %x(Xplayed),iadefensive(Plateau,XRandom,Xplayed),
+			 x(Xplayed), iadefatak(Plateau,XRandom,Xplayed),
 			 %iarandom(Plateau,XRandom), 
-			 %iadefatak(Plateau,XRandom,Xplayed),
-			 write(Plateau),
-			 iaminmax(Plateau,XRandom), 
+			 %iaminmax(Plateau,XRandom), 
+			 %runiaglouton(Plateau, XRandom),
+
 			 addElement(b,XRandom), 
 			 p(PlateauDeux), checkFinJeu(XRandom,PlateauDeux),
 			 write('IA Won'),nl, print_matrix(PlateauDeux),!.
@@ -91,18 +92,18 @@ puissanceAuto :- p(Plateau),
 			 	all_full(Plateau), 
 			 	write('its a draw'), !.
 
-puissanceAuto :- p(Plateau), y(Yplayed),
-			 	%iadefensive(Plateau,I,Yplayed),
+puissanceAuto :- p(Plateau), 
+			 	%y(Yplayed), iadefensive(Plateau,I,Yplayed),
 			 	%iarandom(Plateau,I),
-			 	%iadefatak(Plateau,I,Yplayed),
-			 	iaminmax(Plateau,I), 
+			 	y(Yplayed), iadefatak(Plateau,I,Yplayed),
+			 	%iaminmax(Plateau,I), 
 			 	%runiaglouton(Plateau, I),
 				retract(x(_)),
 			 	assert(x(I)),
 			 	addElement(a,I),
 			 	
 			 	p(PlateauDeux), 
-			 	print_matrix(PlateauDeux),
+			 	nl, print_matrix(PlateauDeux), sleep(1),
 			 	checkFinJeu(I,PlateauDeux),
 			 	write('IA1 won'),nl, print_matrix(PlateauDeux)
 			 	,!.
@@ -112,18 +113,18 @@ puissanceAuto :- p(Plateau),
 			 	write('its a draw'),nl, print_matrix(Plateau),
 				!.
 
-puissanceAuto :- p(Plateau), x(Xplayed),
+puissanceAuto :- p(Plateau),
 			 %iarandom(Plateau,XRandom), 
-			 %iadefensive(Plateau,XRandom,Xplayed),
-			 iadefatak(Plateau,XRandom,Xplayed),
-			 %iaminmax(Plateau,XRandom), 
+			 %x(Xplayed),iadefensive(Plateau,XRandom,Xplayed),
+			 %x(Xplayed), iadefatak(Plateau,XRandom,Xplayed),
+			 iaminmax(Plateau,XRandom), 
 			 %runiaglouton(Plateau, XRandom),
 			 retract(y(_)),
-			 assert(y(Xplayed)),
+			 assert(y(XRandom)),
 			 addElement(b,XRandom),
 			 
 			 p(PlateauDeux), 
-			 print_matrix(PlateauDeux),
+			 nl, print_matrix(PlateauDeux), sleep(1),
 			 checkFinJeu(XRandom,PlateauDeux),
 			 write('IA2 won'),nl, print_matrix(PlateauDeux),!.
 
