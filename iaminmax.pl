@@ -69,14 +69,12 @@ minmax(Plateau, Child, Profondeur, Value, X) :-
 
 %Si la colonne est full pour ce fils, on passe au suivant
 loopChild(Plateau,7,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
-loopChild(Plateau,6,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('Passage Ici'),Xc is 7 , nth1(Xc,Plateau, Column), column_is_full(Column), write('PassageLa'),nl,ValeurARetenir is BestValue, XaRetenir is BestX,!.
+loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('Passage Ici'),Xc is Child+1 , nth1(Xc,Plateau, Column), column_is_full(Column), 
+																		loopChild(Plateau,Xc,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir),!.
 loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- 
-		Xc is Child +1 , nth1(Xc,Plateau, Column), 
-		(column_is_full(Column) ->  ChildCol is Child + 1 ; ChildCol is Child),
-
 		Profondeur1 is Profondeur+1,
 		Max is Profondeur1 mod 2, 
-		ChildElement is ChildCol +1 ,  %Solve indice problems
+		ChildElement is Child +1 ,  %Solve indice problems
 		((Max = 1) -> addElementToMatrix(b,ChildElement,Plateau, Plateau1) ; addElementToMatrix(a,ChildElement,Plateau, Plateau1) ),
 
 		write('    Begginning Next Element'), nl,
@@ -86,15 +84,15 @@ loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir)
 		write('        Entering minmax'), nl, 
 		write(Plateau1),nl,
 		
-		minmax(Plateau1, ChildCol, Profondeur1, Value1, X1),
-		write('		  Retracting'),nl,
+		minmax(Plateau1, Child, Profondeur1, Value1, X1),
+		write('        Entering minmax'), nl, 
 		retractElementFromMatrix(ChildElement,Plateau1,Plateau2),
 
 
 		write('                             The best Value was'), write(BestValue),
 		write(' With X : '), write(BestX), nl,
-		((Max = 1) -> maximum(BestValue, Value1, BestValue1, BestX, ChildCol, BestX1) ; minimum(BestValue, Value1, BestValue1, BestX, ChildCol, BestX1)),
-		Child1 is ChildCol+1,
+		((Max = 1) -> maximum(BestValue, Value1, BestValue1, BestX, Child, BestX1) ; minimum(BestValue, Value1, BestValue1, BestX, Child, BestX1)),
+		Child1 is Child+1,
 
 
 		write('        Sortie minmax avec Valeur : '), write(Value1), nl,
@@ -103,8 +101,6 @@ loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir)
 		write(' With X : '), write(BestX1), nl,
 		write('    Ending Next Element'),nl,nl,
 
-		loopChild(Plateau2,Child1,Profondeur, BestValue1, ValeurARetenir, BestX1, XaRetenir).
-
-
+		loopChild(Plateau2,Child1,Profondeur, BestValue1, ValeurARetenir, BestX1, XaRetenir),!.
 %Introduction de Xrand pour indices
 iaminmax(Plateau, XRand) :- minmax(Plateau,0,0,Value,Xc), XRand is Xc +1,  !.
