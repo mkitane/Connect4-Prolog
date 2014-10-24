@@ -93,17 +93,17 @@ puissanceAuto :- p(Plateau),
 			 	write('its a draw'), !.
 
 puissanceAuto :- p(Plateau), 
-			 	y(Yplayed), iadefensive(Plateau,I,Yplayed),
+			 	%y(Yplayed), iadefensive(Plateau,I,Yplayed),
 			 	%iarandom(Plateau,I),
 			 	%y(Yplayed), iadefatak(Plateau,I,Yplayed),
-			 	%iaminmax(Plateau,I), 
+			 	iaminmax(Plateau,I), 
 			 	%runiaglouton(Plateau, I),
 				retract(x(_)),
 			 	assert(x(I)),
 			 	addElement(a,I),
 			 	
 			 	p(PlateauDeux), 
-			 	print_matrix(PlateauDeux),
+			 	nl, print_matrix(PlateauDeux), sleep(1),
 			 	checkFinJeu(I,PlateauDeux),
 			 	write('IA1 won'),nl, print_matrix(PlateauDeux)
 			 	,!.
@@ -116,15 +116,15 @@ puissanceAuto :- p(Plateau),
 puissanceAuto :- p(Plateau),
 			 %iarandom(Plateau,XRandom), 
 			 %x(Xplayed),iadefensive(Plateau,XRandom,Xplayed),
-			 %x(Xplayed), iadefatak(Plateau,XRandom,Xplayed),
+			 x(Xplayed), iadefatak(Plateau,XRandom,Xplayed),
 			 %iaminmax(Plateau,XRandom), 
-			 runiaglouton(Plateau, XRandom),
+			 %runiaglouton(Plateau, XRandom),
 			 retract(y(_)),
 			 assert(y(XRandom)),
 			 addElement(b,XRandom),
 			 
 			 p(PlateauDeux), 
-			 print_matrix(PlateauDeux),
+			 nl, print_matrix(PlateauDeux), sleep(1),
 			 checkFinJeu(XRandom,PlateauDeux),
 			 write('IA2 won'),nl, print_matrix(PlateauDeux),!.
 

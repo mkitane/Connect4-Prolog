@@ -38,7 +38,7 @@ minimum(_, Y, Result, _, X1, BestX1) :- Result is Y, BestX1 is X1,!.
 %             bestValue := min(bestValue, val)
 %         return bestValue
 
-minmax(Plateau,Child,Profondeur,Value, X) :-  Profondeur \= 0, Xc is Child +1 ,  nth1(Xc,Plateau, Column), column_is_full(Column),nl, X is Child, Value is 0,!.
+minmax(Plateau,Child,Profondeur,Value, X) :-  Profondeur \= 0, Xc is Child +1 ,  nth1(Xc,Plateau, Column), column_is_full(Column), X is Child, Value is 0,!.
 minmax(Plateau,Child,_,Value, X) :- Xc is Child +1 , iaWon(Plateau,Xc), Value is 100000, X is Child,!.
 minmax(Plateau,Child,_,Value, X) :- Xc is Child +1 ,playerWon(Plateau,Xc), Value is -100000, X is Child,!.
 minmax(Plateau,Child,_,Value, X) :- all_full(Plateau), Value is 0, X is Child,!.
