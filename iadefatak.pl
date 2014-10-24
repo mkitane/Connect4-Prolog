@@ -403,9 +403,9 @@ iadefatak(M,Xh,Xpos) :-
                  
 %joue a gauche ou a droite de la derniere position
 iadefatak(M,Xh,Xpos) :- nth1(Xpos,M,C),longueur(C,Y),Xpos<7,
-Xv is Xpos+1,nth1(Xv,M,C1),
-longueur(C1,Y1),Y2 is Y1+1,Y2==Y,
-Xh=Xv,!.
+						Xv is Xpos+1,nth1(Xv,M,C1),
+						longueur(C1,Y1),Y2 is Y1+1,Y2==Y,
+						Xh=Xv,!.
 
 		          				                            
 iadefatak(M,Xh,Xpos) :- nth1(Xpos,M,C),longueur(C,Y),Xpos>1,

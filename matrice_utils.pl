@@ -1,4 +1,4 @@
-:- module(matrice_utils, [addElement/2, replace/4, nthElem/3, ajoutFin/3, longueur/2, isSame/3, all_full/1, is_outbound/1, get_column/3, column_is_full/1, get_consecutive_neighbors_column/5, get_consecutive_neighbors_ligne_before/5, get_consecutive_neighbors_ligne_after/5, get_consecutive_neighbors_ligne/4, checkFinDiagonaleBefore1/5, checkFinDiagonaleAfter1/5,checkFinDiagonaleBefore2/5,checkFinDiagonaleAfter2/5]).
+:- module(matrice_utils, [addElement/2, replace/4, nthElem/3, ajoutFin/3, longueur/2, isSame/3, all_full/1, is_outbound/1, get_column/3, column_is_full/1, get_consecutive_neighbors_column/5, get_consecutive_neighbors_ligne_before/5, get_consecutive_neighbors_ligne_after/5, get_consecutive_neighbors_ligne/4, checkFinDiagonaleBefore1/5, checkFinDiagonaleAfter1/5,checkFinDiagonaleBefore2/5,checkFinDiagonaleAfter2/5,getElemFromGrid/4,addElementToMatrix/4,retractElementFromMatrix/3]).
 
 get_column(M,I,C) :- nth1(I,M, C). 
 column_is_full(C) :- longueur(C,Length_c), Length_c > 5.
@@ -6,6 +6,9 @@ column_is_full(C) :- longueur(C,Length_c), Length_c > 5.
 all_full([]).
 all_full([H|T]) :- column_is_full(H), all_full(T).
 
+% Returns Elem at position (X,Y) in grid M
+getElemFromGrid(X,Y,M,Elem) :- nth1(X,M,L), nth1(Y,L,Elem),!.
+getElemFromGrid(X,Y,M,Elem) :- true,!.
 
 % Check if the number entered in parameter is a number between 1 and 7 
 is_outbound(I) :- (not(number(I)) ; I<1 ; I>7),!.
@@ -43,6 +46,15 @@ addElement(A,I) :- p(X), nthElem(I,X,Elem), ajoutFin(A,Elem,Newcolonne),
 
 retractElement(I) :- p(X), nthElem(I,X,Elem), retireFin(Elem,Newcolonne), 
 					 Indice is I-1, replace(X,Indice,Newcolonne,R), retract(p(_)), assert(p(R)), !. 
+
+
+addElementToMatrix(A,I,M,MResult) :- 
+				nthElem(I,M,Elem), ajoutFin(A,Elem,Newcolonne), 
+				Indice is I-1, replace(M,Indice,Newcolonne,MResult), !.
+
+retractElementFromMatrix(I,M,MResult) :-
+				nthElem(I,M,Elem), retireFin(Elem,Newcolonne), 
+				Indice is I-1, replace(M,Indice,Newcolonne,MResult), !.
 
 %%Utilitaires pour avoir le nombre de voisin en lignes/colonne etc..
 

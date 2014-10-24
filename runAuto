@@ -4,5 +4,6 @@
 # Make sure SWI-Prolog.app is in the /Applications directory
 
 export PATH=/Applications/SWI-Prolog.app/Contents/MacOS:$PATH
-#swipl -s testFinJeu.pl -t "kitane(hmar)"
-swipl -s testFinJeu.pl -t run_tests
+clear
+clear
+swipl -s puissance.pl -t "puissanceAuto" 
