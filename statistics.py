@@ -15,7 +15,7 @@ if __name__ == "__main__":
 		'draw' :0, 
 	}
 
-	for x in range(0,100):
+	for x in range(0,10):
 		regexIA1Won = re.compile('.*IA1.*', re.DOTALL)
 		regexIA2Won = re.compile('.*IA2.*', re.DOTALL)
 		regexDraw = re.compile('.*draw.*', re.DOTALL)

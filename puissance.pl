@@ -4,6 +4,7 @@
 :- use_module(iadefensive).
 :- use_module(iadefatak).
 :- use_module(iaminmax).
+:- use_module(iaglouton).
 
 
 %Predicat pour dessiner soit le pion du joueur a en rouge, soit celui du joueur b en vert ou un espace si la case est vide
@@ -95,6 +96,7 @@ puissanceAuto :- p(Plateau), y(Yplayed),
 			 	iarandom(Plateau,I),
 			 	%iadefatak(Plateau,I,Yplayed),
 			 	%iaminmax(Plateau,I), 
+			 	%runiaglouton(Plateau, I),
 				retract(x(_)),
 			 	assert(x(I)),
 			 	addElement(a,I),

@@ -42,7 +42,7 @@ minmax(Plateau,Child,Profondeur,Value, X) :-  Profondeur \= 0, Xc is Child +1 , 
 minmax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 , iaWon(Plateau,Xc), Value is 100000, X is Child,!.
 minmax(Plateau,Child,Profondeur,Value, X) :- Xc is Child +1 ,playerWon(Plateau,Xc), Value is -100000, X is Child,!.
 minmax(Plateau,Child,Profondeur,Value, X) :- all_full(Plateau), Value is 0, X is Child,!.
-minmax(Plateau, Child, 2, Value, X) :- write('Test ICI'), Xc is Child+1,  write('MDR'),nl, heuristique(Plateau,Xc, Value), write('   		//Result'), write(Value), nl,nl, X is Child,!.
+minmax(Plateau, Child, 3, Value, X) :- write('Test ICI'), Xc is Child+1,  write('MDR'),nl, heuristique(Plateau,Xc, Value), write('   		//Result'), write(Value), nl,nl, X is Child,!.
 
 minmax(Plateau, Child, Profondeur, Value, X) :- 
 		Max is Profondeur mod 2, 
@@ -69,6 +69,7 @@ minmax(Plateau, Child, Profondeur, Value, X) :-
 
 %Si la colonne est full pour ce fils, on passe au suivant
 loopChild(Plateau,7,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('SauvegardeValeurARetenir'), nl,nl,ValeurARetenir is BestValue, XaRetenir is BestX, !.
+loopChild(Plateau,6,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- write('Passage Ici'),Xc is 7 , nth1(Xc,Plateau, Column), column_is_full(Column), write('PassageLa'),nl,ValeurARetenir is BestValue, XaRetenir is BestX,!.
 loopChild(Plateau,Child,Profondeur, BestValue, ValeurARetenir, BestX, XaRetenir) :- 
 		Xc is Child +1 , nth1(Xc,Plateau, Column), 
 		(column_is_full(Column) ->  ChildCol is Child + 1 ; ChildCol is Child),
