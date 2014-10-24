@@ -65,7 +65,7 @@ checkFinLigneAfter(_,_,_,S, Compteur) :- Compteur is S, !.
 %		L : matrice (grille du jeu)
 checkFinLigne(X,Y,L) :- 
 					get_consecutive_neighbors_ligne(X,Y,L,Total),
-					write('Total Ligne:'), write(Total), nl,
+					%write('Total Ligne:'), write(Total), nl,
 					Total >=4, !.
 					
 				
@@ -91,7 +91,7 @@ checkFinDiagonaleAfter1(_,_,_,S, Compteur) :- Compteur is S, !.
 checkFinDiagonale1(X,Y,L) :- 
 					checkFinDiagonaleBefore1(X,Y,L,0,Sb), checkFinDiagonaleAfter1(X,Y,L,0,Sa),	
 					Total is Sa+Sb+1,
-					write('Total Diagonale:'), write(Total), nl,
+					%write('Total Diagonale:'), write(Total), nl,
 					Total >=4, !.
 	
 		
@@ -116,7 +116,7 @@ checkFinDiagonaleAfter2(_,_,_,S, Compteur) :- Compteur is S, !.
 checkFinDiagonale2(X,Y,L) :- 
 					checkFinDiagonaleBefore2(X,Y,L,0,Sb), checkFinDiagonaleAfter2(X,Y,L,0,Sa),	
 					Total is Sa+Sb+1,
-					write('Total Diagonale:'), write(Total), nl,
+					%write('Total Diagonale:'), write(Total), nl,
 					Total >=4, !.
 
 

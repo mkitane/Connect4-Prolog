@@ -8,7 +8,7 @@ all_full([H|T]) :- column_is_full(H), all_full(T).
 
 % Returns Elem at position (X,Y) in grid M
 getElemFromGrid(X,Y,M,Elem) :- nth1(X,M,L), nth1(Y,L,Elem),!.
-getElemFromGrid(X,Y,M,Elem) :- true,!.
+getElemFromGrid(_,_,_,_) :- true,!.
 
 % Check if the number entered in parameter is a number between 1 and 7 
 is_outbound(I) :- (not(number(I)) ; I<1 ; I>7),!.
