@@ -50,7 +50,7 @@ minmax(Plateau, _, Profondeur, Value, X) :-
 		Max is Profondeur mod 2, 
 		%write('Begginning Childs Profondeur : '), write(Profondeur), nl,
 
-		((Max = 0 ) -> BestValue is -100000 ; BestValue is 10000 ), %Max = 0, c'est max qui joue
+		((Max = 0 ) -> BestValue is -100000 ; BestValue is 100000 ), %Max = 0, c'est max qui joue
 		BestX is 0, 
 		loopChild(Plateau,0,Profondeur,BestValue,ValeurARetenir, BestX, XaRetenir),
 		Value is ValeurARetenir,
